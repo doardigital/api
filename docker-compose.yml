@@ -9,6 +9,7 @@ services:
       - "5432:5432"
     volumes:
       - ./db:/var/lib/postgresql/data
+      - ./db_setup.sql:/docker-entrypoint-initdb.d/setup.sql
 
   doardigital_api:
     build:
@@ -17,7 +18,7 @@ services:
       DB_SCHEMA: postgres
       DB_USER: user
       DB_PASSWORD: password
-      DB_HOST: db
+      DB_HOST: doardigital_db
       DB_PORT: 5432
       DB_NAME: db
       PORT: 3000
