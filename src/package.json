@@ -1,0 +1,31 @@
+{
+  "name": "doardigital",
+  "version": "0.0.1",
+  "description": "API REST responsável por gerenciar as informações de doações",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doardigital/api.git"
+  },
+  "keywords": [
+    "doar",
+    "digital"
+  ],
+  "author": "Vinicius Mayrink",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doardigital/api/issues"
+  },
+  "homepage": "https://github.com/doardigital/api#readme",
+  "dependencies": {
+    "@koa/router": "^12.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "koa": "^2.14.2",
+    "koa-jwt": "^4.0.4",
+    "nodemon": "^2.0.22"
+  }
+}
