@@ -18,20 +18,10 @@ const notEditableFields = [
 ];
 
 router
-  .get('/', async (ctx, next) => {
-    ctx.body = await Controller.get(ctx, modelName);
-  })
   .post('/', async (ctx, next) => {
     ctx.request.body.senha = ctx.request.body.senha ? md5(ctx.request.body.senha) : ctx.request.body.senha;
     await Controller.create(ctx, modelName, requiredFields);
-  })
-  .patch('/:id', async (ctx, next) => {
-    await Controller.edit(ctx, modelName, notEditableFields);
-  })
-  .delete('/:id', async (ctx, next) => {
-    await Controller.remove(ctx, modelName);
   });
-
 
 module.exports = router;
   

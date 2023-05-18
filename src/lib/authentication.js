@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
+const models = require('../models');
+const { Op } = require('sequelize');
+const md5 = require('md5');
+const jwt_decode = require('jwt-decode');
+const jwtKoa = require('koa-jwt');
 
-const generateToken = () => {
+const generateToken = (encryptedObject) => {
   return jwt.sign(
-    { role: 'admin' },
+    encryptedObject,
     process.env.JWT_KEY,
     {
       expiresIn: process.env.JWT_EXPIRATION
@@ -10,6 +15,29 @@ const generateToken = () => {
   );
 };
 
+const checkAccess = async (userAcess, password) => {
+  const users = await models.Usuario.findAll({
+    where: {
+      [Op.or]: [
+        { acesso: userAcess },
+        { email: userAcess },
+      ],
+      senha: md5(password),
+    },
+  });
+
+  return users.length > 0 ? users[0] : false;
+};
+
+const session = () => {
+  return async (ctx, next) => {
+    ctx.user = { ...jwt_decode(ctx.request.token) }
+    await next();
+  }
+};
+
 module.exports = {
   generateToken,
+  checkAccess,
+  session,
 };

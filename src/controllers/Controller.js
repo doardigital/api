@@ -18,7 +18,7 @@ create = async (ctx, modelName, requiredFields) => {
   }
   
   await models[modelName].create(data);
-  ctx.status = 200;
+  ctx.status = 201;
   ctx.body = `${modelName} criado com sucesso.`
 };
 

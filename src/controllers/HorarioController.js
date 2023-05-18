@@ -1,28 +1,22 @@
 const Router = require('@koa/router');
 const Controller = require('./Controller');
-const md5 = require('md5');
 
 const router = new Router({
-  prefix: '/usuario'
+  prefix: '/horario'
 });
 
-const modelName = 'Usuario';
+const modelName = 'Horario';
 const requiredFields = [
-  'nome',
-  'senha',
-  'email',
+  'dataHora',
 ];
 
-const notEditableFields = [
-  'email',
-];
+const notEditableFields = [];
 
 router
   .get('/', async (ctx, next) => {
     ctx.body = await Controller.get(ctx, modelName);
   })
   .post('/', async (ctx, next) => {
-    ctx.request.body.senha = ctx.request.body.senha ? md5(ctx.request.body.senha) : ctx.request.body.senha;
     await Controller.create(ctx, modelName, requiredFields);
   })
   .patch('/:id', async (ctx, next) => {
