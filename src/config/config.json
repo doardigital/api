@@ -20,8 +20,7 @@
     "database": "db",
     "host": "104.208.96.158",
     "port": 80,
-    "dialect": "postgres",
-    "dialectModule": "require('pg')"
+    "dialect": "postgres"
   }
 }
   

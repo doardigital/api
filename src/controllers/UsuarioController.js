@@ -1,5 +1,4 @@
 const Router = require('@koa/router');
-const models = require('../models');
 const Controller = require('./Controller');
 
 const router = new Router({
