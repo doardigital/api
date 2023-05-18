@@ -1,6 +1,6 @@
 {
   "name": "doardigital",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "API REST responsável por gerenciar as informações de doações",
   "main": "index.js",
   "scripts": {
