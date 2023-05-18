@@ -19,3 +19,5 @@ app
   .use(DoacaoController.routes())
   .use(UsuarioController.routes())
   .listen(process.env.PORT);
+
+module.exports = app;
