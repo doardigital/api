@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production PORT=3000 JWT_KEY=123 JWT_EXPIRATION=1h node index.js"
   },
   "repository": {
     "type": "git",

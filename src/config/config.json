@@ -17,7 +17,8 @@
       "username": "user",
       "password": "password",
       "database": "db",
-      "host": "doardigital_db",
+      "host": "104.208.96.158",
+      "port": 80,
       "dialect": "postgres"
     }
   }
