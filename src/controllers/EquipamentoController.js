@@ -1,9 +1,6 @@
-const Router = require('@koa/router');
+const { Op } = require("sequelize");
 const Controller = require('./Controller');
-
-const router = new Router({
-  prefix: '/equipamento'
-});
+const models = require('../models');
 
 const modelName = 'Equipamento';
 const requiredFields = [
@@ -15,20 +12,43 @@ const requiredFields = [
 
 const notEditableFields = [];
 
-router
-  .get('/', async (ctx, next) => {
-    ctx.body = await Controller.get(ctx, modelName);
-  })
-  .post('/', async (ctx, next) => {
-    await Controller.create(ctx, modelName, requiredFields);
-  })
-  .patch('/:id', async (ctx, next) => {
-    await Controller.edit(ctx, modelName, notEditableFields);
-  })
-  .delete('/:id', async (ctx, next) => {
-    await Controller.remove(ctx, modelName);
+const get = async (ctx, next) => {
+  ctx.body = await Controller.get(ctx, modelName);
+};
+
+const create = async (ctx, next) => {
+  await Controller.create(ctx, modelName, requiredFields);
+};
+
+const patch = async (ctx, next) => {
+  await Controller.edit(ctx, modelName, notEditableFields);
+};
+
+const remove = async (ctx, next) => {
+  await Controller.remove(ctx, modelName);
+};
+
+const equipamentosDoados = async (ctx, next) => {
+  const doacoes = await models.Doacao.findAll({
+    where: {
+      idUsuario: ctx.user.id,
+    },
   });
 
+  ctx.body = await models.Equipamento.findAll({
+    where: {
+      idDoacao: {
+        [Op.in]: doacoes.map(doacao => doacao.dataValues.id),
+      }
+    }
+  });
+};
 
-module.exports = router;
+module.exports = {
+  get,
+  create,
+  patch,
+  remove,
+  equipamentosDoados,
+};
   

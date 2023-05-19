@@ -5,14 +5,10 @@ const bodyParser = require('koa-bodyparser');
 const { bearerToken } = require('koa-bearer-token');
 
 const ErrorHandling = require('./lib/errorHandling');
-const { session } = require('./lib/authentication');
-const AuthenticationController = require('./controllers/AuthenticationController');
-const UsuarioController = require('./controllers/UsuarioController');
-const UsuarioPublicController = require('./controllers/UsuarioPublicController');
-const EquipamentoController = require('./controllers/EquipamentoController');
-const DoacaoController = require('./controllers/DoacaoController');
-const HorarioController = require('./controllers/HorarioController');
-const WelcomeController = require('./controllers/WelcomeController');
+const { session, admin } = require('./lib/authentication');
+const PublicRoutes = require('./routes/PublicRoutes');
+const CommonRoutes = require('./routes/CommonRoutes');
+const AdminRoutes = require('./routes/AdminRoutes');
 
 const app = new Koa();
 
@@ -20,16 +16,13 @@ app.on('error', ErrorHandling.handle);
 
 app
   .use(bodyParser())
-  .use(AuthenticationController.routes())
-  .use(WelcomeController.routes())
-  .use(UsuarioPublicController.routes())
+  .use(PublicRoutes.routes())
   .use(jwt({ secret: process.env.JWT_KEY }))
   .use(bearerToken())
   .use(session())
-  .use(UsuarioController.routes())
-  .use(EquipamentoController.routes())
-  .use(DoacaoController.routes())
-  .use(HorarioController.routes())
+  .use(CommonRoutes.routes())
+  .use(admin())
+  .use(AdminRoutes.routes())
   .listen(process.env.PORT);
 
 module.exports = app;

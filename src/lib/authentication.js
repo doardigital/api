@@ -36,8 +36,20 @@ const session = () => {
   }
 };
 
+const admin = () => {
+  return async (ctx, next) => {
+    if (!ctx.user.ehAdministrador) {
+      ctx.body = 'O recurso não existe ou você precisa ser administrador para acessá-lo.';
+      ctx.status = 401;
+      return;
+    }
+    await next();
+  }
+};
+
 module.exports = {
   generateToken,
   checkAccess,
   session,
+  admin,
 };
