@@ -1,5 +1,5 @@
 const get = ctx => {
-  ctx.body = 'Doar Digital API.';
+  ctx.body = 'Doar Digital API..';
 };
 
 
