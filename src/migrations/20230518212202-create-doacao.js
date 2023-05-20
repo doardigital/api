@@ -16,13 +16,10 @@ module.exports = {
           key: 'id'
         }
       },
-      idStatusDoacao: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'StatusDoacaos',
-          key: 'id',
-          allowNull: true
-        }
+      statusDoacao: {
+        allowNull: true,
+        type: Sequelize.CHAR(1),
+        defaultValue: 'P'
       },
       idHorario: {
         type: Sequelize.INTEGER,

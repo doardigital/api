@@ -1,5 +1,6 @@
 const Controller = require('./Controller');
 const md5 = require('md5');
+const models = require('../models');
 
 const modelName = 'Usuario';
 const requiredFields = [
@@ -14,6 +15,12 @@ const notEditableFields = [
 
 const get = async (ctx, next) => {
   ctx.body = await Controller.get(ctx, modelName);
+};
+
+const getCurrentUser = async (ctx, next) => {
+  const user = await models.Usuario.findByPk(ctx.user.id);
+  if (user) delete user.dataValues.senha;
+  ctx.body = user || {};
 };
 
 const create = async (ctx, next) => {
@@ -35,4 +42,5 @@ module.exports = {
   create,
   patch,
   remove,
+  getCurrentUser,
 };

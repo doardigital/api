@@ -56,6 +56,16 @@ router
   })
   .del('/horario/:id', async (ctx, next) => {
     await HorarioController.remove(ctx, next);
+  })
+  
+  .post('/aprovaDoacao', async (ctx, next) => {
+    await DoacaoController.aprovaDoacao(ctx, next);
+  })
+  .post('/rejeitaDoacao', async (ctx, next) => {
+    await DoacaoController.rejeitaDoacao(ctx, next);
+  })
+  .post('/doacaoEntregue', async (ctx, next) => {
+    await DoacaoController.doacaoEntregue(ctx, next);
   });
 
 module.exports = router;

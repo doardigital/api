@@ -1,6 +1,10 @@
 const Controller = require('./Controller');
 const models = require('../models');
 
+const STATUS_APROVADO = 'A';
+const STATUS_REJEITADO = 'R';
+const STATUS_PENDENTE = 'P';
+
 const modelName = 'Doacao';
 const requiredFields = [
   'idUsuario',
@@ -34,11 +38,74 @@ const minhasDoacoes = async (ctx, next) => {
   });
 };
 
+const aprovaDoacao = async (ctx, next) => {
+  const { idDoacao } = ctx.request.body;
+  const doacao = await models.Doacao.findOne({
+    where: {
+      id: idDoacao,
+      statusDoacao: STATUS_PENDENTE,
+    }
+  });
+
+  if (!doacao) {
+    ctx.body = 'Doação não encontrada ou já processada.';
+    ctx.status = 202;
+    return;
+  }
+
+  doacao.statusDoacao = 'A';
+  await doacao.save();
+  ctx.status = 200;
+};
+
+const rejeitaDoacao = async (ctx, next) => {
+  const { idDoacao } = ctx.request.body;
+  const doacao = await models.Doacao.findOne({
+    where: {
+      id: idDoacao,
+      statusDoacao: STATUS_PENDENTE,
+    }
+  });
+
+  if (!doacao) {
+    ctx.body = 'Doação não encontrada ou já processada.';
+    ctx.status = 202;
+    return;
+  }
+
+  doacao.statusDoacao = 'R';
+  await doacao.save();
+  ctx.status = 200;
+};
+
+const doacaoEntregue = async (ctx, next) => {
+  const { idDoacao } = ctx.request.body;
+  const doacao = await models.Doacao.findOne({
+    where: {
+      id: idDoacao,
+      statusDoacao: STATUS_APROVADO,
+    }
+  });
+
+  if (!doacao) {
+    ctx.body = 'Doação não encontrada ou ainda não aprovada.';
+    ctx.status = 202;
+    return;
+  }
+  
+  doacao.statusDoacao = 'E';
+  await doacao.save();
+  ctx.status = 200;
+};
+
 module.exports = {
   get,
   create,
   patch,
   remove,
   minhasDoacoes,
+  aprovaDoacao,
+  rejeitaDoacao,
+  doacaoEntregue,
 };
   

@@ -28,13 +28,9 @@ module.exports = {
           key: 'id'
         }
       },
-      idEstadoEquipamento: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'EstadoEquipamentos',
-          key: 'id',
-          allowNull: true
-        }
+      estadoEquipamento: {
+        allowNull: true,
+        type: Sequelize.CHAR(1)
       },
       createdAt: {
         allowNull: false,

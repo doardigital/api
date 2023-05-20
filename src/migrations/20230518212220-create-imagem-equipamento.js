@@ -10,10 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       arquivo: {
-        type: Sequelize.STRING
-      },
-      formato: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB
       },
       idEquipamento: {
         type: Sequelize.INTEGER,

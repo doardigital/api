@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Doacao.init({
     idUsuario: DataTypes.INTEGER,
-    idStatusDoacao: DataTypes.INTEGER,
+    statusDoacao: DataTypes.CHAR(1),
     idHorario: DataTypes.INTEGER
   }, {
     sequelize,
