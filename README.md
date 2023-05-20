@@ -46,9 +46,9 @@ xhr.send(data);
 
 ## Rotas
 
-Rotas que podem ser acessadas via requisições REST.
+Rotas que podem ser acessadas via requisições REST. O "Content-Type" esperado para as requisições é `application/json`
 
-A API pode ser acessada em [doardigital-api.vercel.app](https://doardigital-api.vercel.app/ "https://doardigital-api.vercel.app")
+A API pode ser acessada em [doardigital-api.vercel.app](https://doardigital-api.vercel.app/)
 
 ### Rotas públicas
 
@@ -56,7 +56,7 @@ A API pode ser acessada em [doardigital-api.vercel.app](https://doardigital-api.
 |---|---|---|---|---|
 | / | GET | - | Rota de boas vindas | - |
 | /login | POST | { acesso, senha } | Realiza a autenticação no serviço | { token } |
-| /usuario | POST | | Realiza a criação de um novo usuário para autenticação | 200
+| /usuario | POST | { nome, email, acesso, telefone, ehAdministrador } | Realiza a criação de um novo usuário para autenticação | 200
 
 ### Rotas comuns
 
