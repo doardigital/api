@@ -13,8 +13,11 @@ const login = async (ctx, next) => {
     ehAdministrador: user.dataValues.ehAdministrador,
   };
 
+  delete user.dataValues.senha;
+
   ctx.body = {
     token: Authentication.generateToken(userToBeEncrypted),
+    ...user.dataValues,
   }
 };
 

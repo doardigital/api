@@ -3,6 +3,7 @@ const jwt = require('koa-jwt');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
 const { bearerToken } = require('koa-bearer-token');
+const cors = require('@koa/cors');
 
 const ErrorHandling = require('./lib/errorHandling');
 const { session, admin } = require('./lib/authentication');
@@ -15,6 +16,7 @@ const app = new Koa();
 app.on('error', ErrorHandling.handle);
 
 app
+  .use(cors())
   .use(bodyParser())
   .use(PublicRoutes.routes())
   .use(jwt({ secret: process.env.JWT_KEY }))
