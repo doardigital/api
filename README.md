@@ -70,6 +70,8 @@ Rotas que precisam de autenticação e NÃO requerem perfil administrador.
 | /common/criarDoacao | POST | { statusDoacao, idHorario } | Cria uma nova doação para o usuário | 201, 400 |
 | /common/criarEquipamento | POST | { nome, modelo, marca, tempoUso, idDoacao, estadoEquipamento } | Cria um novo equipamento para uma doação do usuário | 201, 400 |
 
+*Equipamentos podem ser relacionados à doações, além de serem diretamente relacionados à usuários.
+
 ### Rotas privadas
 
 Rotas que precisam de autenticação e requerem perfil administrador.

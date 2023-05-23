@@ -22,7 +22,7 @@ router
     await DoacaoController.create(ctx, next);
   })
   .post('/criarEquipamento', async (ctx, next) => {
-    console.log(ctx.request);
+    ctx.request.body.idUsuario = ctx.user.id;
     await EquipamentoController.create(ctx, next);
   });
 

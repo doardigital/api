@@ -37,9 +37,16 @@ const equipamentosDoados = async (ctx, next) => {
 
   ctx.body = await models.Equipamento.findAll({
     where: {
-      idDoacao: {
-        [Op.in]: doacoes.map(doacao => doacao.dataValues.id),
-      }
+      [Op.or]: [
+        {
+          idDoacao: {
+            [Op.in]: doacoes.map(doacao => doacao.dataValues.id),
+          },
+        },
+        {
+          idUsuario: ctx.user.id,
+        },
+      ],
     }
   });
 };

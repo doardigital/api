@@ -28,6 +28,13 @@ module.exports = {
           key: 'id'
         }
       },
+      idUsuario: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Usuarios',
+          key: 'id'
+        }
+      },
       estadoEquipamento: {
         allowNull: true,
         type: Sequelize.CHAR(1)
