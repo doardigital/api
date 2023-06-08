@@ -2,6 +2,7 @@ const Koa = require('koa');
 const jwt = require('koa-jwt');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
+const { koaBody } = require('koa-body');
 const { bearerToken } = require('koa-bearer-token');
 const cors = require('@koa/cors');
 
@@ -17,6 +18,7 @@ app.on('error', ErrorHandling.handle);
 
 app
   .use(cors())
+  .use(koaBody({ multipart: true }))
   .use(bodyParser())
   .use(PublicRoutes.routes())
   .use(jwt({ secret: process.env.JWT_KEY }))

@@ -1,8 +1,7 @@
 const Router = require('@koa/router');
 const UsuarioController = require('../controllers/UsuarioController');
-const DoacaoController = require('../controllers/DoacaoController');
 const EquipamentoController = require('../controllers/EquipamentoController');
-const HorarioController = require('../controllers/HorarioController');
+const ImagemEquipamentoController = require('../controllers/ImagemEquipamentoController');
 
 const router = new Router({
   prefix: '/admin'
@@ -18,19 +17,6 @@ router
   .del('/usuario/:id', async (ctx, next) => {
     await UsuarioController.remove(ctx, next);
   })
-
-  .get('/doacao', async (ctx, next) => {
-    await DoacaoController.get(ctx, next);
-  })
-  .post('/doacao', async (ctx, next) => {
-    await DoacaoController.create(ctx, next);
-  })
-  .patch('/doacao/:id', async (ctx, next) => {
-    await DoacaoController.patch(ctx, next);
-  })
-  .del('/doacao/:id', async (ctx, next) => {
-    await DoacaoController.remove(ctx, next);
-  })
   
   .get('/equipamento', async (ctx, next) => {
     await EquipamentoController.get(ctx, next);
@@ -45,28 +31,18 @@ router
     await EquipamentoController.remove(ctx, next);
   })
   
-  .get('/horario', async (ctx, next) => {
-    await HorarioController.get(ctx, next);
+  .get('/imagemEquipamento', async (ctx, next) => {
+    await ImagemEquipamentoController.get(ctx, next);
   })
-  .post('/horario', async (ctx, next) => {
-    await HorarioController.create(ctx, next);
+  .post('/imagemEquipamento', async (ctx, next) => {
+    await ImagemEquipamentoController.create(ctx, next);
   })
-  .patch('/horario/:id', async (ctx, next) => {
-    await HorarioController.patch(ctx, next);
+  .patch('/imagemEquipamento/:id', async (ctx, next) => {
+    await ImagemEquipamentoController.patch(ctx, next);
   })
-  .del('/horario/:id', async (ctx, next) => {
-    await HorarioController.remove(ctx, next);
-  })
-  
-  .post('/aprovaDoacao', async (ctx, next) => {
-    await DoacaoController.aprovaDoacao(ctx, next);
-  })
-  .post('/rejeitaDoacao', async (ctx, next) => {
-    await DoacaoController.rejeitaDoacao(ctx, next);
-  })
-  .post('/doacaoEntregue', async (ctx, next) => {
-    await DoacaoController.doacaoEntregue(ctx, next);
-  });
+  .del('/imagemEquipamento/:id', async (ctx, next) => {
+    await ImagemEquipamentoController.remove(ctx, next);
+  });;
 
 module.exports = router;
   

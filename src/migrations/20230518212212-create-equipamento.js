@@ -21,13 +21,6 @@ module.exports = {
       tempoUso: {
         type: Sequelize.INTEGER
       },
-      idDoacao: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Doacaos',
-          key: 'id'
-        }
-      },
       idUsuario: {
         type: Sequelize.INTEGER,
         references: {
@@ -38,6 +31,15 @@ module.exports = {
       estadoEquipamento: {
         allowNull: true,
         type: Sequelize.CHAR(1)
+      },
+      statusDoacao: {
+        allowNull: true,
+        type: Sequelize.CHAR(1),
+        defaultValue: 'P'
+      },
+      dataEntrega: {
+        allowNull: true,
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ImagemEquipamento.init({
-    arquivo: DataTypes.BLOB,
+    base64: DataTypes.TEXT,
+    tipo: DataTypes.STRING,
     idEquipamento: DataTypes.INTEGER
   }, {
     sequelize,

@@ -9,8 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      arquivo: {
-        type: Sequelize.BLOB
+      base64: {
+        type: Sequelize.TEXT
+      },
+      tipo: {
+        type: Sequelize.STRING
       },
       idEquipamento: {
         type: Sequelize.INTEGER,

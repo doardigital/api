@@ -29,24 +29,9 @@ const remove = async (ctx, next) => {
 };
 
 const equipamentosDoados = async (ctx, next) => {
-  const doacoes = await models.Doacao.findAll({
-    where: {
-      idUsuario: ctx.user.id,
-    },
-  });
-
   ctx.body = await models.Equipamento.findAll({
     where: {
-      [Op.or]: [
-        {
-          idDoacao: {
-            [Op.in]: doacoes.map(doacao => doacao.dataValues.id),
-          },
-        },
-        {
-          idUsuario: ctx.user.id,
-        },
-      ],
+      idUsuario: ctx.user.id,
     }
   });
 };
