@@ -65,12 +65,13 @@ Rotas que precisam de autenticação e NÃO requerem perfil administrador.
 | URL | Método | Parâmetros | Descrição | Retorno/Status
 |---|---|---|---|---|
 | /common/meuPerfil | GET | - | Obtém informações do usuário logado | { nome, email, acesso, telefone, ehAdministrador } |
-| /common/minhasDoacoes | GET | - | Obtém as doações realizadas pelo usuário | [{ id, idUsuario, statusDoacao, idHorario, createdAt, updatedAt }] |
 | /common/equipamentosDoados | GET | - | Obtém os equipamentos doados pelo usuário | [{ id, nome, modelo, marca, tempoUso, idDoacao, estadoEquipamento, createdAt, updatedAt }] |
-| /common/criarDoacao | POST | { statusDoacao, idHorario } | Cria uma nova doação para o usuário | 201, 400 |
-| /common/criarEquipamento | POST | { nome, modelo, marca, tempoUso, idDoacao, estadoEquipamento } | Cria um novo equipamento para uma doação do usuário | 201, 400 |
+| /common/criarEquipamento | POST | { nome, modelo, marca, tempoUso, estadoEquipamento } | Cria um novo equipamento para uma doação do usuário | 201, 400 |
+| /common/uploadImagemEquipamento/{id} | POST* | { file } | Cria um novo equipamento para uma doação do usuário | 201, 400 |
+| /common/getImagensEquipamento/{id} | GET | - | Obtém as imagens associadas ao equipamento** | [{ base64 }] |
 
-*Equipamentos podem ser relacionados à doações, além de serem diretamente relacionados à usuários.
+*Upload da imagem realizado via requisição [multipart](https://stackoverflow.com/questions/16958448/what-is-http-multipart-request).
+**As imagens retornadas estão no formato [base64](https://pt.wikipedia.org/wiki/Base64). Para renderizá-las no HTML, basta adicionar as informações de cada imagem como valores do atributo `src` de uma `img`.
 
 ### Rotas privadas
 
@@ -78,21 +79,14 @@ Rotas que precisam de autenticação e requerem perfil administrador.
 
 | URL | Método | Parâmetros | Descrição | Retorno/Status
 |---|---|---|---|---|
-| /usuario | GET | - | Busca por todos os usuários existentes | [{ nome, email, acesso, telefone, senha, ehAdministrador }] |
-| /usuario/{id} | PATCH | { nome, acesso, telefone, ehAdministrador } | Edita um registro de usuário existente | 200, 400, 404 |
-| /usuario/{id} | DELETE | - |Remove um registro de usuário existente | 200, 404 |
-| /admin/doacao | GET | - | Busca por todos as doações existentes | [{ id, idUsuario, statusDoacao, idHorario, createdAt, updatedAt }] |
-| /admin/doacao | POST | { idUsuario, statusDoacao, idHorario } | Cria uma nova doação | 201, 400 |
-| /admin/doacao/{id} | PATCH | { statusDoacao, idHorario } | Edita um registro de doação existente | 200, 400, 404 |
-| /admin/doacao/{id} | DELETE | - |Remove um registro de doação existente | 200, 404 |
+| /admin/usuario | GET | - | Busca por todos os usuários existentes | [{ nome, email, acesso, telefone, senha, ehAdministrador }] |
+| /admin/usuario/{id} | PATCH | { nome, acesso, telefone, ehAdministrador } | Edita um registro de usuário existente | 200, 400, 404 |
+| /admin/usuario/{id} | DELETE | - | Remove um registro de usuário existente | 200, 404 |
 | /admin/equipamento | GET | - | Busca por todos os equipamentos existentes | [{ id, nome, modelo, marca, tempoUso, idDoacao, estadoEquipamento, createdAt, updatedAt }] |
-| /admin/equipamento | POST | { nome, modelo, marca, tempoUso, idDoacao, estadoEquipamento } | Cria um novo equipamento | 201, 400 |
-| /admin/equipamento/{id} | PATCH | { nome, modelo, marca, tempoUso, idDoacao, estadoEquipamento } | Edita um registro de equipamento existente | 200, 400, 404 |
-| /admin/equipamento/{id} | DELETE | - |Remove um registro de equipamento existente | 200, 404 |
-| /admin/horario | GET | - | Busca por todos os horários existentes | [{ id, dataHora, createdAt, updatedAt }] |
-| /admin/horario | POST | { dataHora } | Cria um novo horário | 201, 400 |
-| /admin/horario/{id} | PATCH | { dataHora } | Edita um registro de horário existente | 200, 400, 404 |
-| /admin/horario/{id} | DELETE | - |Remove um registro de horário existente | 200, 404 |
-| /admin/aprovaDoacao | POST | { idDoacao } | Cria um novo horário | 200, 202 |
-| /admin/rejeitaDoacao | POST | { idDoacao } | Cria um novo horário | 200, 202 |
-| /admin/doacaoEntregue | POST | { idDoacao } | Cria um novo horário | 200, 202 |
+| /admin/equipamento | POST | { nome, modelo, marca, tempoUso, estadoEquipamento, statusDoacao, dataEntrega } | Cria um novo equipamento | 201, 400 |
+| /admin/equipamento/{id} | PATCH | { nome, modelo, marca, tempoUso, estadoEquipamento, statusDoacao, dataEntrega } | Edita um registro de equipamento existente | 200, 400, 404 |
+| /admin/equipamento/{id} | DELETE | - | Remove um registro de equipamento existente | 200, 404 |
+| /admin/imagemEquipamento | GET | - | Busca por todas as imagens de equipamentos existentes | [{ id, base64, tipo, idEquipamento, createdAt, updatedAt }] |
+| /admin/imagemEquipamento | POST | { base64, tipo, idEquipamento } | Cria uma nova imagem equipamento | 201, 400 |
+| /admin/imagemEquipamento/{id} | PATCH | { base64, tipo, idEquipamento } | Edita um registro de imagem de equipamento existente | 200, 400, 404 |
+| /admin/imagemEquipamento/{id} | DELETE | - | Remove um registro de imagem de equipamento existente | 200, 404 |
