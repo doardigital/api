@@ -4,7 +4,9 @@ fieldsNotFilled = [];
 editableFieldsChanged = [];
 
 get = async (ctx, modelName) => {
-  const dados = await models[modelName].findAll();
+  const dados = await models[modelName].findAll({
+    order: ['id']
+  });
   ctx.status = 200;
   return dados;
 };
